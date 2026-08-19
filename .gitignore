@@ -1,0 +1,33 @@
+# Build results
+bin/
+obj/
+dist/
+build/
+
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.sln.iml
+.DS_Store
+
+# Dependencies
+node_modules/
+packages/
+.npm/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+
+# IDE
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+Thumbs.db
+.DS_Store

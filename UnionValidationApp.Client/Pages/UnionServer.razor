@@ -1,0 +1,137 @@
+﻿@page "/union-server"
+@rendermode InteractiveServer
+@using UnionValidationApp.Client.Components
+@using UnionValidationApp.Client.Models
+@inject ILogger<UnionServer> Logger
+@inject PersistentComponentState ApplicationState
+@implements IDisposable
+@inject IJSRuntime JS
+@inject ILogger<UnionServer> Logger
+
+<div class="alert alert-info">
+    <div>Renderer: <strong>@RendererInfo.Name</strong></div>
+    <div>Interactive: <strong>@RendererInfo.IsInteractive</strong></div>
+    <div>Restored: @wasRestored</div>
+</div>
+<div class="container my-4" style="max-width: 800px;">
+    <h3 class="mb-1 text-danger">Parent: Interactive Server Mode</h3>
+    <p class="text-muted small">Runs inside the server context via a persistent SignalR circuit.</p>
+    <div class="alert alert-secondary py-1 my-3 shadow-sm">
+        <strong>Bucket 7 (Persisted State):</strong> Token = <span class="text-danger">@persistedUnion</span>
+        <div>Case: @GetPersistedCase()</div>
+        <div>Value: @GetPersistedValue()</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <UnionIntOrStringTests Label="Test 1: Unambiguous (Int)" ActiveUnion="@primitiveUnion" />
+            <UnionNullableIntOrStringTests Label="Test 2: Nullable (Null Active Case)" ActiveUnion="@nullableUnion" />
+        </div>
+        <div class="col-md-6">
+            <UnionUnclassifiedRecordUnionTests Label="Test 3A: Unclassified Record" ActiveUnion="@unclassifiedCustomer" />
+            <UnionUnclassifiedRecordUnionTests Label="Test 3B: Unclassified Record" ActiveUnion="@unclassifiedProduct" />
+            <UnionClassifiedRecordUnionTests Label="Test 4A: Classified Record" ActiveUnion="@classifiedCustomer" />
+            <UnionClassifiedRecordUnionTests Label="Test 4: Classified Record" ActiveUnion="@classifiedProduct" />
+            <div class="p-2 border rounded bg-white mb-3 shadow-sm">
+                <small class="text-muted d-block font-monospace">Bucket 5: Wrapped Container</small>
+                <div class="mb-1"><strong>Order ID:</strong> @nestedWrapper.OrderId</div>
+                <UnionNestedUnionTests Label="Nested Union Variable" Payload="nestedWrapper" />
+            </div>
+        </div>
+    </div>
+
+    <div class="card p-3 my-2 bg-light border shadow-sm">
+        <h6>Interactive Mutations</h6>
+        <button class="btn btn-sm btn-danger w-50" @onclick="MutateValues">Change Active Cases</button>
+    </div>
+
+    <div class="p-3 bg-dark text-white rounded mt-3 shadow">
+        <h6>Bucket 8: JS Interop Log</h6>
+        <button class="btn btn-sm btn-info me-2" @onclick="SendToJs">Send to JS Console</button>
+        <button class="btn btn-sm btn-light" @onclick="FetchFromJs">Fetch from JS</button>
+        <div class="font-monospace small text-info mt-2">@jsLog</div>
+    </div>
+</div>
+
+@code {
+    private bool wasRestored;
+    private IntOrString primitiveUnion = 200606;
+    private NullableIntOrString nullableUnion = (int?)null;
+    private ClassifiedRecordUnion classifiedCustomer = new CustomerName("Server Classified Customer");
+    private ClassifiedRecordUnion classifiedProduct = new ProductName("Server Classified Product");
+    private UnclassifiedRecordUnion unclassifiedCustomer = new CustomerName("Server Unclassified Customer");
+    private UnclassifiedRecordUnion unclassifiedProduct = new ProductName("Server Unclassified Product");
+    private OrderPayload nestedWrapper = new() { OrderId = 2400, PaymentRef = 5500 };
+    private IntOrString persistedUnion;
+    private PersistingComponentStateSubscription stateSubscription;
+    private string jsLog = "No Action Recorded";
+
+    protected override void OnInitialized()
+    {
+        if (!ApplicationState.TryTakeFromJson<IntOrString>(
+              "persisted_union",
+              out var restoredUnion))
+        {
+            persistedUnion = $"UNION_TOKEN_{Guid.NewGuid():N}";
+            wasRestored = false;
+        }
+        else
+        {
+            persistedUnion = restoredUnion;
+            wasRestored = true;
+        }
+
+        stateSubscription =
+            ApplicationState.RegisterOnPersisting(PersistActiveState);
+        Logger.LogInformation("Renderer={Renderer}, Interactive={Interactive}, Restored={Restored}, Value={Value}",
+    RendererInfo.Name, RendererInfo.IsInteractive, wasRestored, GetPersistedValue());
+    }
+
+    private string GetPersistedCase() => persistedUnion switch
+    {
+        int => "int",
+        string => "string",
+        null => "null"
+    };
+
+    private string GetPersistedValue() => persistedUnion switch
+    {
+        int number => number.ToString(),
+        string text => text,
+        null => "[null]"
+    };
+
+    private Task PersistActiveState()
+    {
+        ApplicationState.PersistAsJson(
+            "persisted_union",
+            persistedUnion);
+
+        return Task.CompletedTask;
+    }
+
+    private void MutateValues()
+    {
+        primitiveUnion = "Swapped to Server String!";
+        nullableUnion = 888;
+
+        classifiedCustomer =
+    new ProductName("Changed from Customer to Product");
+
+        nestedWrapper = new OrderPayload
+        {
+            OrderId = nestedWrapper.OrderId,
+            PaymentRef = "Server-PAYMENT-CHANGED"
+        };
+    }
+
+    private async Task SendToJs() => await JS.InvokeVoidAsync("console.log", "Server Union Output:", primitiveUnion switch { int i => (object)i, string s => s });
+
+    private async Task FetchFromJs()
+    {
+        var json = await JS.InvokeAsync<string>("eval", "JSON.stringify({ Kind: 'product', Name: 'Server SignalR Pipeline' })");
+        var resolved = System.Text.Json.JsonSerializer.Deserialize<ClassifiedRecordUnion>(json);
+        jsLog = resolved switch { CustomerName c => $"Fetched Customer: {c.Name}", ProductName p => $"Fetched Product: {p.Name}" };
+    }
+
+    public void Dispose() => stateSubscription.Dispose();    
+}

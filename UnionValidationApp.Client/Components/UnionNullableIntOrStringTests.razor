@@ -1,0 +1,28 @@
+﻿@using UnionValidationApp.Client.Models
+
+<div class="card mb-3 shadow-sm border-dark">
+    <div class="card-header bg-dark text-white p-1">
+        <span class="font-monospace fw-bold small">@Label</span>
+    </div>
+    <div class="card-body bg-light p-2 font-monospace">
+            <!-- Render the computed text output here -->
+            <span>@GetUnionDescription()</span>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Label { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public NullableIntOrString ActiveUnion { get; set; }
+
+    // Moving pattern matching safely out of HTML blocks into clean C# methods
+    private string GetUnionDescription()
+    { 
+
+        return ActiveUnion switch
+        {
+           int i => $"Active Case: int? | Value: {i}",           
+           string s => $"Active Case: string | Value: \"{s}\"",
+            null => "Active Case: int? | VALUE IS NULL (Null Active Case)"
+        };
+    }
+}

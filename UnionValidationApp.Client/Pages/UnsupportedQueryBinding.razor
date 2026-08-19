@@ -1,0 +1,20 @@
+﻿@page "/unsupported-union-query"
+@using UnionValidationApp.Client.Models
+
+<h3>Unsupported Union Query Binding</h3>
+
+<p>Renderer: @RendererInfo.Name</p>
+<p>Value: @GetDescription()</p>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "value")]
+    public IntOrString Value { get; set; }
+
+    private string GetDescription() => Value switch
+    {
+        int number => $"int: {number}",
+        string text => $"string: {text}",
+        null => "null/default"
+    };
+}

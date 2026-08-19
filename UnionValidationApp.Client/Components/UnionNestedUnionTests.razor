@@ -1,0 +1,47 @@
+﻿@using UnionValidationApp.Client.Models
+
+<div class="card mb-3 shadow-sm border-dark">
+    <div class="card-header bg-dark text-white p-1">
+        <span class="font-monospace fw-bold small">@Label</span>
+    </div>
+
+    <div class="card-body bg-light p-2 font-monospace">
+        @if (Payload is null)
+        {
+            <span class="text-muted">[Payload is null]</span>
+        }
+        else
+        {
+            <div>Order ID: @Payload.OrderId</div>
+            <div>@GetPaymentReferenceDescription()</div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public OrderPayload? Payload { get; set; }
+
+    private string GetPaymentReferenceDescription()
+    {
+        if (Payload is null)
+        {
+            return "Payload: null";
+        }
+
+        return Payload.PaymentRef switch
+        {
+            int number =>
+                $"PaymentRef case: int; value: {number}",
+
+            string text =>
+                $"PaymentRef case: string; value: \"{text}\"",
+
+            null =>
+                "PaymentRef case: null; value: null"
+        };
+    }
+}
