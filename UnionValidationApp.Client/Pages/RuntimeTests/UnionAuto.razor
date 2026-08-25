@@ -55,8 +55,8 @@
     private bool wasRestored;
     private IntOrString primitiveUnion = 100505;
     private NullableIntOrString nullableUnion = (int?)null;
-    private ClassifiedRecordUnion classifiedCustomer = new CustomerName("Auto Classified Customer");
-    private ClassifiedRecordUnion classifiedProduct = new ProductName("Auto Classified Product");
+    private ClassifiedRecordUnion classifiedCustomer = new ClassifiedCustomerName("Auto Classified Customer");
+    private ClassifiedRecordUnion classifiedProduct = new ClassifiedProductName("Auto Classified Product");
     private UnclassifiedRecordUnion unclassifiedCustomer = new CustomerName("Auto Unclassified Customer");
     private UnclassifiedRecordUnion unclassifiedProduct = new ProductName("Auto Unclassified Product");
     private OrderPayload nestedWrapper = new() { OrderId = 1200, PaymentRef = 4400 };
@@ -115,7 +115,7 @@
         nullableUnion = 888;
 
         classifiedCustomer =
-            new ProductName("Changed from Customer to Product");
+            new ClassifiedProductName("Changed from Customer to Product");
 
         nestedWrapper = new OrderPayload
         {
@@ -130,7 +130,7 @@
     {
         var json = await JS.InvokeAsync<string>("eval", "JSON.stringify({ Kind: 'customer', Name: 'Auto Evaluator' })");
         var resolved = System.Text.Json.JsonSerializer.Deserialize<ClassifiedRecordUnion>(json);
-        jsLog = resolved switch { CustomerName c => $"Fetched Customer: {c.Name}", ProductName p => $"Fetched Product: {p.Name}" };
+        jsLog = resolved switch { ClassifiedCustomerName c => $"Fetched Customer: {c.Name}", ClassifiedProductName p => $"Fetched Product: {p.Name}" };
     }
 
     public void Dispose() => stateSubscription.Dispose();

@@ -28,8 +28,8 @@
 
           return ActiveUnion switch
             {
-                CustomerName c => $"Active Case: CustomerName | Name: {c.Name}",
-                ProductName p => $"Active Case: ProductName | Name: {p.Name}",
+                ClassifiedCustomerName c => $"Active Case: CustomerName | Name: {c.Name}",
+                ClassifiedProductName p => $"Active Case: ProductName | Name: {p.Name}",
                  _ => "Unknown classified record union  case pattern matched."
             };
     }

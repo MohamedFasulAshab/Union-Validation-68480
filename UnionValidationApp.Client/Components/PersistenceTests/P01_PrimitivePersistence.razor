@@ -1,0 +1,75 @@
+@using UnionValidationApp.Client.Models
+
+@implements IDisposable
+
+@inject PersistentComponentState ApplicationState
+@inject ILogger<P01_PrimitivePersistence> Logger
+
+<h4>P01: Persisted IntOrString</h4>
+
+<div class="alert alert-info">
+    <div>Renderer: <strong>@RendererInfo.Name</strong></div>
+    <div>Interactive: <strong>@RendererInfo.IsInteractive</strong></div>
+    <div>Restored: <strong>@restored</strong></div>
+</div>
+
+<div class="card p-3">
+    <div>Active case: <strong>@GetCase()</strong></div>
+    <div>Value: <strong>@GetValue()</strong></div>
+</div>
+
+@code {
+    private const string StateKey = "p01_primitive_union";
+
+    private IntOrString persistedValue;
+    private bool restored;
+    private PersistingComponentStateSubscription subscription;
+
+    protected override void OnInitialized()
+    {
+        if (ApplicationState.TryTakeFromJson<IntOrString>(StateKey, out var restoredValue))
+        {
+            persistedValue = restoredValue;
+            restored = true;
+        }
+        else
+        {
+            persistedValue = $"P01_{Guid.NewGuid():N}";
+        }
+
+        subscription = ApplicationState.RegisterOnPersisting(PersistState);
+
+        Logger.LogInformation(
+            "P01 Renderer={Renderer}, Interactive={Interactive}, Restored={Restored}, Case={Case}, Value={Value}",
+            RendererInfo.Name,
+            RendererInfo.IsInteractive,
+            restored,
+            GetCase(),
+            GetValue());
+    }
+
+    private Task PersistState()
+    {
+        ApplicationState.PersistAsJson(StateKey, persistedValue);
+        return Task.CompletedTask;
+    }
+
+    private string GetCase() => persistedValue switch
+    {
+        int => "int",
+        string => "string",
+        null => "null"
+    };
+
+    private string GetValue() => persistedValue switch
+    {
+        int number => number.ToString(),
+        string text => text,
+        null => "[null]"
+    };
+
+    public void Dispose()
+    {
+        subscription.Dispose();
+    }
+}

@@ -56,8 +56,8 @@
     private bool wasRestored;
     private IntOrString primitiveUnion = 200606;
     private NullableIntOrString nullableUnion = (int?)null;
-    private ClassifiedRecordUnion classifiedCustomer = new CustomerName("Server Classified Customer");
-    private ClassifiedRecordUnion classifiedProduct = new ProductName("Server Classified Product");
+    private ClassifiedRecordUnion classifiedCustomer = new ClassifiedCustomerName("Server Classified Customer");
+    private ClassifiedRecordUnion classifiedProduct = new ClassifiedProductName("Server Classified Product");
     private UnclassifiedRecordUnion unclassifiedCustomer = new CustomerName("Server Unclassified Customer");
     private UnclassifiedRecordUnion unclassifiedProduct = new ProductName("Server Unclassified Product");
     private OrderPayload nestedWrapper = new() { OrderId = 2400, PaymentRef = 5500 };
@@ -115,7 +115,7 @@
         nullableUnion = 888;
 
         classifiedCustomer =
-    new ProductName("Changed from Customer to Product");
+    new ClassifiedProductName("Changed from Customer to Product");
 
         nestedWrapper = new OrderPayload
         {
@@ -130,7 +130,7 @@
     {
         var json = await JS.InvokeAsync<string>("eval", "JSON.stringify({ Kind: 'product', Name: 'Server SignalR Pipeline' })");
         var resolved = System.Text.Json.JsonSerializer.Deserialize<ClassifiedRecordUnion>(json);
-        jsLog = resolved switch { CustomerName c => $"Fetched Customer: {c.Name}", ProductName p => $"Fetched Product: {p.Name}" };
+        jsLog = resolved switch { ClassifiedCustomerName c => $"Fetched Customer: {c.Name}", ClassifiedProductName p => $"Fetched Product: {p.Name}" };
     }
 
     public void Dispose() => stateSubscription.Dispose();    

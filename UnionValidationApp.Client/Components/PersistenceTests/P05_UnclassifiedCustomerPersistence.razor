@@ -1,0 +1,96 @@
+@using UnionValidationApp.Client.Models
+
+@implements IDisposable
+
+@inject PersistentComponentState ApplicationState
+@inject ILogger<P05_UnclassifiedCustomerPersistence> Logger
+
+<h4>P05: Persisted unclassified customer</h4>
+
+<div class="alert alert-info">
+    <div>Renderer: <strong>@RendererInfo.Name</strong></div>
+    <div>Interactive: <strong>@RendererInfo.IsInteractive</strong></div>
+    <div>Restored: <strong>@restored</strong></div>
+</div>
+
+<div class="card p-3">
+    <div>Active case: <strong>@GetCase()</strong></div>
+    <div>Value: <strong>@GetValue()</strong></div>
+</div>
+
+@code {
+    private const string StateKey = "p05_unclassified_customer";
+
+    private UnclassifiedRecordUnion persistedValue =
+        new CustomerName($"P05_CUSTOMER_{Guid.NewGuid():N}");
+    private bool restored;
+    private PersistingComponentStateSubscription subscription;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            if (ApplicationState.TryTakeFromJson<UnclassifiedRecordUnion>(StateKey, out var restoredValue))
+            {
+                persistedValue = restoredValue;
+                restored = true;
+            }
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(
+                exception,
+                "P05 restore failed. ExceptionType={ExceptionType}, Message={Message}",
+                exception.GetType().FullName,
+                exception.Message);
+            throw;
+        }
+
+        subscription = ApplicationState.RegisterOnPersisting(PersistState);
+
+        Logger.LogInformation(
+            "P05 Renderer={Renderer}, Interactive={Interactive}, Restored={Restored}, Case={Case}, Value={Value}",
+            RendererInfo.Name,
+            RendererInfo.IsInteractive,
+            restored,
+            GetCase(),
+            GetValue());
+    }
+
+    private Task PersistState()
+    {
+        try
+        {
+            ApplicationState.PersistAsJson(StateKey, persistedValue);
+            return Task.CompletedTask;
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(
+                exception,
+                "P05 persistence failed. ExceptionType={ExceptionType}, Message={Message}",
+                exception.GetType().FullName,
+                exception.Message);
+            throw;
+        }
+    }
+
+    private string GetCase() => persistedValue switch
+    {
+        CustomerName => nameof(CustomerName),
+        ProductName => nameof(ProductName),
+        null => "null"
+    };
+
+    private string GetValue() => persistedValue switch
+    {
+        CustomerName customer => customer.Name,
+        ProductName product => product.Name,
+        null => "[null]"
+    };
+
+    public void Dispose()
+    {
+        subscription.Dispose();
+    }
+}

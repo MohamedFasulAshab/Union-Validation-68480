@@ -52,8 +52,8 @@
     private bool wasRestored;
     private IntOrString primitiveUnion = 300707;
     private NullableIntOrString nullableUnion = (int?)null;
-    private ClassifiedRecordUnion classifiedCustomer = new CustomerName("WASM Classified Customer");
-    private ClassifiedRecordUnion classifiedProduct = new ProductName("WASM Classified Product");
+    private ClassifiedRecordUnion classifiedCustomer = new ClassifiedCustomerName("WASM Classified Customer");
+    private ClassifiedRecordUnion classifiedProduct = new ClassifiedProductName("WASM Classified Product");
     private UnclassifiedRecordUnion unclassifiedCustomer = new CustomerName("WASM Unclassified Customer");
     private UnclassifiedRecordUnion unclassifiedProduct = new ProductName("WASM Unclassified Product");
     private OrderPayload nestedWrapper = new() { OrderId = 3600, PaymentRef = 6600 };
@@ -111,7 +111,7 @@
         primitiveUnion = "Swapped to WASM String!";
         nullableUnion = 999;
         classifiedCustomer =
-           new ProductName("Changed from Customer to Product");
+           new ClassifiedProductName("Changed from Customer to Product");
 
         nestedWrapper = new OrderPayload
         {
@@ -126,7 +126,7 @@
     {
         var json = await JS.InvokeAsync<string>("eval", "JSON.stringify({ Kind: 'customer', Name: 'Wasm Native Storage' })");
         var resolved = System.Text.Json.JsonSerializer.Deserialize<ClassifiedRecordUnion>(json);
-        jsLog = resolved switch { CustomerName c => $"Fetched Customer: {c.Name}", ProductName p => $"Fetched Product: {p.Name}" };
+        jsLog = resolved switch { ClassifiedCustomerName c => $"Fetched Customer: {c.Name}", ClassifiedProductName p => $"Fetched Product: {p.Name}" };
     }
 
     public void Dispose() => stateSubscription.Dispose();

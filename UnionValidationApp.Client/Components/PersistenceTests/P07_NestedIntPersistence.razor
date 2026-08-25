@@ -1,0 +1,78 @@
+@using UnionValidationApp.Client.Models
+
+@implements IDisposable
+
+@inject PersistentComponentState ApplicationState
+@inject ILogger<P07_NestedIntPersistence> Logger
+
+<h4>P07: Persisted nested int union</h4>
+
+<div class="alert alert-info">
+    <div>Renderer: <strong>@RendererInfo.Name</strong></div>
+    <div>Interactive: <strong>@RendererInfo.IsInteractive</strong></div>
+    <div>Restored: <strong>@restored</strong></div>
+</div>
+
+<div class="card p-3">
+    <div>OrderId: <strong>@persistedValue.OrderId</strong></div>
+    <div>PaymentRef case: <strong>@GetPaymentCase()</strong></div>
+    <div>PaymentRef value: <strong>@GetPaymentValue()</strong></div>
+</div>
+
+@code {
+    private const string StateKey = "p07_nested_int";
+
+    private OrderPayload persistedValue = new()
+    {
+        OrderId = 7001,
+        PaymentRef = 7700
+    };
+    private bool restored;
+    private PersistingComponentStateSubscription subscription;
+
+    protected override void OnInitialized()
+    {
+        if (ApplicationState.TryTakeFromJson<OrderPayload>(StateKey, out var restoredValue) &&
+            restoredValue is not null)
+        {
+            persistedValue = restoredValue;
+            restored = true;
+        }
+
+        subscription = ApplicationState.RegisterOnPersisting(PersistState);
+
+        Logger.LogInformation(
+            "P07 Renderer={Renderer}, Interactive={Interactive}, Restored={Restored}, OrderId={OrderId}, PaymentRefCase={Case}, PaymentRefValue={Value}",
+            RendererInfo.Name,
+            RendererInfo.IsInteractive,
+            restored,
+            persistedValue.OrderId,
+            GetPaymentCase(),
+            GetPaymentValue());
+    }
+
+    private Task PersistState()
+    {
+        ApplicationState.PersistAsJson(StateKey, persistedValue);
+        return Task.CompletedTask;
+    }
+
+    private string GetPaymentCase() => persistedValue.PaymentRef switch
+    {
+        int => "int",
+        string => "string",
+        null => "null"
+    };
+
+    private string GetPaymentValue() => persistedValue.PaymentRef switch
+    {
+        int number => number.ToString(),
+        string text => text,
+        null => "[null]"
+    };
+
+    public void Dispose()
+    {
+        subscription.Dispose();
+    }
+}

@@ -1,0 +1,75 @@
+@using UnionValidationApp.Client.Models
+
+@implements IDisposable
+
+@inject PersistentComponentState ApplicationState
+@inject ILogger<P02_NullPersistence> Logger
+
+<h4>P02: Persisted NullableIntOrString active null</h4>
+
+<div class="alert alert-info">
+    <div>Renderer: <strong>@RendererInfo.Name</strong></div>
+    <div>Interactive: <strong>@RendererInfo.IsInteractive</strong></div>
+    <div>Restored: <strong>@restored</strong></div>
+</div>
+
+<div class="card p-3">
+    <div>Active case: <strong>@GetCase()</strong></div>
+    <div>Value: <strong>@GetValue()</strong></div>
+</div>
+
+@code {
+    private const string StateKey = "p02_nullable_null";
+
+    private NullableIntOrString persistedValue = (int?)null;
+    private bool restored;
+    private PersistingComponentStateSubscription subscription;
+
+    protected override void OnInitialized()
+    {
+        if (ApplicationState.TryTakeFromJson<NullableIntOrString>(StateKey, out var restoredValue))
+        {
+            persistedValue = restoredValue;
+            restored = true;
+        }
+        else
+        {
+            persistedValue = (int?)null;
+        }
+
+        subscription = ApplicationState.RegisterOnPersisting(PersistState);
+
+        Logger.LogInformation(
+            "P02 Renderer={Renderer}, Interactive={Interactive}, Restored={Restored}, Case={Case}, Value={Value}",
+            RendererInfo.Name,
+            RendererInfo.IsInteractive,
+            restored,
+            GetCase(),
+            GetValue());
+    }
+
+    private Task PersistState()
+    {
+        ApplicationState.PersistAsJson(StateKey, persistedValue);
+        return Task.CompletedTask;
+    }
+
+    private string GetCase() => persistedValue switch
+    {
+        int => "int?",
+        string => "string",
+        null => "int?"
+    };
+
+    private string GetValue() => persistedValue switch
+    {
+        int number => number.ToString(),
+        string text => text,
+        null => "null"
+    };
+
+    public void Dispose()
+    {
+        subscription.Dispose();
+    }
+}

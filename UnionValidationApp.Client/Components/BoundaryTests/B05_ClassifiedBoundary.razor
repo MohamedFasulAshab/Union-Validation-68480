@@ -10,8 +10,8 @@
 
     private string Describe() => Value switch
     {
-        CustomerName c => $"CustomerName: {c.Name}",
-        ProductName p => $"ProductName: {p.Name}",
+        ClassifiedCustomerName c => $"CustomerName: {c.Name}",
+        ClassifiedProductName p => $"ProductName: {p.Name}",
         null => "null"
     };
 }

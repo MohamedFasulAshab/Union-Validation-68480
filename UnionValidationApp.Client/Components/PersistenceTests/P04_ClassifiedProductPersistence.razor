@@ -1,0 +1,72 @@
+@using UnionValidationApp.Client.Models
+
+@implements IDisposable
+
+@inject PersistentComponentState ApplicationState
+@inject ILogger<P04_ClassifiedProductPersistence> Logger
+
+<h4>P04: Persisted classified product</h4>
+
+<div class="alert alert-info">
+    <div>Renderer: <strong>@RendererInfo.Name</strong></div>
+    <div>Interactive: <strong>@RendererInfo.IsInteractive</strong></div>
+    <div>Restored: <strong>@restored</strong></div>
+</div>
+
+<div class="card p-3">
+    <div>Active case: <strong>@GetCase()</strong></div>
+    <div>Value: <strong>@GetValue()</strong></div>
+</div>
+
+@code {
+    private const string StateKey = "p04_classified_product";
+
+    private ClassifiedRecordUnion persistedValue =
+        new ClassifiedProductName($"P04_PRODUCT_{Guid.NewGuid():N}");
+    private bool restored;
+    private PersistingComponentStateSubscription subscription;
+
+    protected override void OnInitialized()
+    {
+        if (ApplicationState.TryTakeFromJson<ClassifiedRecordUnion>(StateKey, out var restoredValue))
+        {
+            persistedValue = restoredValue;
+            restored = true;
+        }
+
+        subscription = ApplicationState.RegisterOnPersisting(PersistState);
+
+        Logger.LogInformation(
+            "P04 Renderer={Renderer}, Interactive={Interactive}, Restored={Restored}, Case={Case}, Value={Value}",
+            RendererInfo.Name,
+            RendererInfo.IsInteractive,
+            restored,
+            GetCase(),
+            GetValue());
+    }
+
+    private Task PersistState()
+    {
+        ApplicationState.PersistAsJson(StateKey, persistedValue);
+        return Task.CompletedTask;
+    }
+
+    private string GetCase() => persistedValue switch
+    {
+        ClassifiedCustomerName => nameof(ClassifiedCustomerName),
+        ClassifiedProductName => nameof(ClassifiedProductName),
+        null => "null"
+    };
+
+    private string GetValue() => persistedValue switch
+    {
+        ClassifiedCustomerName customer => customer.Name,
+        ClassifiedProductName product => product.Name,
+        null => "[null]"
+    };
+
+    public void Dispose()
+    {
+        subscription.Dispose();
+    }
+}
