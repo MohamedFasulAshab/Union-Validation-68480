@@ -1,0 +1,10 @@
+@page "/boundary-b10"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B10: OrderPayload with nested IntOrString (active string) — Server boundary</h4>
+<B09_NestedBoundary @rendermode="InteractiveServer" Value="@value" />
+
+@code {
+    private OrderPayload value = new() { OrderId = 3600, PaymentRef = "PAY-RECEIPT-001" };
+}

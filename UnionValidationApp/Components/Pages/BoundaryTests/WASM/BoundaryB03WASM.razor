@@ -1,0 +1,10 @@
+@page "/boundary-b03-wasm"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B03: NullableIntOrString (active null) — Server boundary</h4>
+<B03_NullableBoundary @rendermode="InteractiveWebAssembly" Value="@value" />
+
+@code {
+    private NullableIntOrString value = (int?)null;
+}

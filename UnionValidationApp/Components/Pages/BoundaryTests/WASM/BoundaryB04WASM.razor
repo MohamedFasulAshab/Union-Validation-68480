@@ -1,0 +1,10 @@
+@page "/boundary-b04-wasm"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B04: NullableIntOrString (active int) — WebAssembly boundary</h4>
+<B03_NullableBoundary @rendermode="InteractiveWebAssembly" Value="@value" />
+
+@code {
+    private NullableIntOrString value = (int?)42;
+}

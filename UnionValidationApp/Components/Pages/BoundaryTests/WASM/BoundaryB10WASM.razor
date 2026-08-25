@@ -1,0 +1,10 @@
+@page "/boundary-b10-wasm"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B10: OrderPayload with nested IntOrString (active string) — WebAssembly boundary</h4>
+<B09_NestedBoundary @rendermode="InteractiveWebAssembly" Value="@value" />
+
+@code {
+    private OrderPayload value = new() { OrderId = 3600, PaymentRef = "PAY-RECEIPT-001" };
+}

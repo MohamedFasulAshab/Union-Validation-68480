@@ -1,0 +1,22 @@
+@using UnionValidationApp.Client.Models
+
+<p>Renderer: @RendererInfo.Name</p>
+<p>Interactive: @RendererInfo.IsInteractive</p>
+<p>@Describe()</p>
+
+@code {
+    [Parameter]
+    public OrderPayload? Value { get; set; }
+
+    private string Describe()
+    {
+        if (Value is null) return "null payload";
+        var paymentDesc = Value.PaymentRef switch
+        {
+            int n => $"int: {n}",
+            string s => $"string: \"{s}\"",
+            null => "null"
+        };
+        return $"OrderId: {Value.OrderId}, PaymentRef: {paymentDesc}";
+    }
+}

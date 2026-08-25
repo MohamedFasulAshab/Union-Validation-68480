@@ -1,0 +1,10 @@
+@page "/boundary-b06-auto"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B06: ClassifiedRecordUnion (ProductName) — Auto boundary</h4>
+<B05_ClassifiedBoundary @rendermode="InteractiveAuto" Value="@value" />
+
+@code {
+    private ClassifiedRecordUnion value = new ProductName("Boundary Product");
+}

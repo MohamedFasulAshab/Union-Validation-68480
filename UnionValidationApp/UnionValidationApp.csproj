@@ -13,4 +13,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="11.0.0-preview.7.26381.103" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Pages\BindingTests\" />
+    <Folder Include="Components\Pages\PersistenceTests\" />
+  </ItemGroup>
+
 </Project>

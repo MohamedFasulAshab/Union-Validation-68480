@@ -1,0 +1,10 @@
+@page "/boundary-b08-wasm"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B08: UnclassifiedRecordUnion (ProductName) — WebAssembly boundary</h4>
+<B07_UnclassifiedBoundary @rendermode="InteractiveWebAssembly" Value="@value" />
+
+@code {
+    private UnclassifiedRecordUnion value = new ProductName("Unclassified Product");
+}

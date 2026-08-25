@@ -1,0 +1,10 @@
+@page "/boundary-b03-auto"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B03: NullableIntOrString (active null) — Auto boundary</h4>
+<B03_NullableBoundary @rendermode="InteractiveAuto" Value="@value" />
+
+@code {
+    private NullableIntOrString value = (int?)null;
+}

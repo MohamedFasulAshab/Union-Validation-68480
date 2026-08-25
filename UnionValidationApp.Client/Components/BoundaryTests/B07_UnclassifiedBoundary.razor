@@ -1,0 +1,17 @@
+@using UnionValidationApp.Client.Models
+
+<p>Renderer: @RendererInfo.Name</p>
+<p>Interactive: @RendererInfo.IsInteractive</p>
+<p>@Describe()</p>
+
+@code {
+    [Parameter]
+    public UnclassifiedRecordUnion Value { get; set; }
+
+    private string Describe() => Value switch
+    {
+        CustomerName c => $"CustomerName (Unclassified): {c.Name}",
+        ProductName p => $"ProductName (Unclassified): {p.Name}",
+        null => "null"
+    };
+}

@@ -1,0 +1,10 @@
+@page "/boundary-b09-auto"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B09: OrderPayload with nested IntOrString (active int) — Auto boundary</h4>
+<B09_NestedBoundary @rendermode="InteractiveAuto" Value="@value" />
+
+@code {
+    private OrderPayload value = new() { OrderId = 2400, PaymentRef = 5500 };
+}

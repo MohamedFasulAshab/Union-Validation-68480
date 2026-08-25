@@ -1,0 +1,10 @@
+@page "/boundary-b06"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B06: ClassifiedRecordUnion (ProductName) — Server boundary</h4>
+<B05_ClassifiedBoundary @rendermode="InteractiveServer" Value="@value" />
+
+@code {
+    private ClassifiedRecordUnion value = new ProductName("Boundary Product");
+}

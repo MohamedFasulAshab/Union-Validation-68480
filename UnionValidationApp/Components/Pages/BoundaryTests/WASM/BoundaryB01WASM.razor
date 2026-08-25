@@ -1,0 +1,10 @@
+@page "/boundary-b01-wasm"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B01: IntOrString (active int) — WebAssembly boundary</h4>
+<B01_IntOrStringBoundary @rendermode="InteractiveWebAssembly" Value="@value" />
+
+@code {
+    private IntOrString value = 200606;
+}

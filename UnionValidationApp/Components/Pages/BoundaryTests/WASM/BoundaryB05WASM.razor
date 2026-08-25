@@ -1,0 +1,10 @@
+@page "/boundary-b05-wasm"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B05-WASM: ClassifiedRecordUnion (CustomerName) — WebAssembly boundary</h4>
+<B05_ClassifiedBoundary @rendermode="InteractiveWebAssembly" Value="@value" />
+
+@code {
+    private ClassifiedRecordUnion value = new CustomerName("Boundary Customer");
+}

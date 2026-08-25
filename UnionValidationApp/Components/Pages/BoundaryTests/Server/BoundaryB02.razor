@@ -1,0 +1,10 @@
+@page "/boundary-b02"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B02: IntOrString (active string) — Server boundary</h4>
+<B01_IntOrStringBoundary @rendermode="InteractiveServer" Value="@value" />
+
+@code {
+    private IntOrString value = "hello union";
+}

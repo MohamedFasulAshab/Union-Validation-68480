@@ -1,0 +1,10 @@
+@page "/boundary-b07"
+@using UnionValidationApp.Client.Models
+@using UnionValidationApp.Client.Components.BoundaryTests
+
+<h4>B07: UnclassifiedRecordUnion (CustomerName) — Server boundary</h4>
+<B07_UnclassifiedBoundary @rendermode="InteractiveServer" Value="@value" />
+
+@code {
+    private UnclassifiedRecordUnion value = new CustomerName("Unclassified Customer");
+}
