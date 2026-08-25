@@ -1,0 +1,21 @@
+MonoPlatform.ts:260
+ crit: Microsoft.AspNetCore.Components.WebAssembly.Rendering.WebAssemblyRenderer[100]
+      Unhandled exception rendering component: UnionAmbiguousJsonValueType, Object, UnionValidationApp.Client.Models.UnclassifiedRecordUnion Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+System.Text.Json.JsonException: UnionAmbiguousJsonValueType, Object, UnionValidationApp.Client.Models.UnclassifiedRecordUnion Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+    at System.Text.Json.Thr…eption(String ):0:0
+    at System.Text.Json.Thr… JsonValueType):0:0
+    at System.Text.Json.Ser…Info`1, Type& ):0:0
+    at System.Text.Json.Ser…dRecordUnion& ):0:0
+    at System.Text.Json.Ser…n& , Boolean& ):0:0
+    at System.Text.Json.Ser…ns, ReadStack&):0:0
+    at System.Text.Json.Ser…r&, ReadStack&):0:0
+    at System.Text.Json.Jso…JsonTypeInfo`1):0:0
+    at System.Text.Json.Jso…alizerOptions ):0:0
+    at Microsoft.AspNetCore…dRecordUnion& ):0:0
+    at UnionValidationApp.C…OnInitialized():0:0
+    at Microsoft.AspNetCore…rametersAsync():0:0
+[NEW] Explain Console errors by using Copilot in Edge: click 
+ to explain an error. Learn more
+Don't show again
+﻿
+

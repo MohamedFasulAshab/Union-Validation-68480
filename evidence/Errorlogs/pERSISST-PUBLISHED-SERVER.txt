@@ -1,0 +1,44 @@
+fail: UnionValidationApp.Client.Components.PersistenceTests.P05_UnclassifiedCustomerPersistence[0]
+      P05 restore failed. ExceptionType=System.Text.Json.JsonException, Message=JSON value type 'Object' is ambiguous for union type 'UnionValidationApp.Client.Models.UnclassifiedRecordUnion' because multiple case types can use this value type. Specify a custom type classifier to support deserialization. Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+      System.Text.Json.JsonException: JSON value type 'Object' is ambiguous for union type 'UnionValidationApp.Client.Models.UnclassifiedRecordUnion' because multiple case types can use this value type. Specify a custom type classifier to support deserialization. Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+         at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+         at System.Text.Json.ThrowHelper.ThrowJsonException_UnionAmbiguousJsonValueType(Type unionType, JsonValueType valueType)
+         at System.Text.Json.Serialization.Converters.JsonUnionConverter`1.TryResolveCaseType(Utf8JsonReader& reader, Type typeToConvert, JsonTypeInfo`1 typeInfo, Type& caseType)
+         at System.Text.Json.Serialization.Converters.JsonUnionConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, TUnion& value)
+         at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+         at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+         at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+         at System.Text.Json.JsonSerializer.Read[TValue](Utf8JsonReader& reader, JsonTypeInfo`1 jsonTypeInfo)
+         at System.Text.Json.JsonSerializer.Deserialize[TValue](Utf8JsonReader& reader, JsonSerializerOptions options)
+         at Microsoft.AspNetCore.Components.PersistentComponentState.TryTakeFromJson[TValue](String key, TValue& instance)
+         at UnionValidationApp.Client.Components.PersistenceTests.P05_UnclassifiedCustomerPersistence.OnInitialized() in D:\Union-Validation-68480\Union-Validation-68480\UnionValidationApp.Client\Components\PersistenceTests\P05_UnclassifiedCustomerPersistence.razor:line 33
+warn: Microsoft.AspNetCore.Components.Server.Circuits.RemoteRenderer[100]
+      Unhandled exception rendering component: JSON value type 'Object' is ambiguous for union type 'UnionValidationApp.Client.Models.UnclassifiedRecordUnion' because multiple case types can use this value type. Specify a custom type classifier to support deserialization. Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+      System.Text.Json.JsonException: JSON value type 'Object' is ambiguous for union type 'UnionValidationApp.Client.Models.UnclassifiedRecordUnion' because multiple case types can use this value type. Specify a custom type classifier to support deserialization. Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+         at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+         at System.Text.Json.ThrowHelper.ThrowJsonException_UnionAmbiguousJsonValueType(Type unionType, JsonValueType valueType)
+         at System.Text.Json.Serialization.Converters.JsonUnionConverter`1.TryResolveCaseType(Utf8JsonReader& reader, Type typeToConvert, JsonTypeInfo`1 typeInfo, Type& caseType)
+         at System.Text.Json.Serialization.Converters.JsonUnionConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, TUnion& value)
+         at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+         at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+         at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+         at System.Text.Json.JsonSerializer.Read[TValue](Utf8JsonReader& reader, JsonTypeInfo`1 jsonTypeInfo)
+         at System.Text.Json.JsonSerializer.Deserialize[TValue](Utf8JsonReader& reader, JsonSerializerOptions options)
+         at Microsoft.AspNetCore.Components.PersistentComponentState.TryTakeFromJson[TValue](String key, TValue& instance)
+         at UnionValidationApp.Client.Components.PersistenceTests.P05_UnclassifiedCustomerPersistence.OnInitialized() in D:\Union-Validation-68480\Union-Validation-68480\UnionValidationApp.Client\Components\PersistenceTests\P05_UnclassifiedCustomerPersistence.razor:line 33
+         at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+fail: Microsoft.AspNetCore.Components.Server.Circuits.CircuitHost[111]
+      Unhandled exception in circuit 'msBPzLhcNGVd3iW5SAKbCznFBkV3Z_l9YMiNZClOP5E'.
+      System.Text.Json.JsonException: JSON value type 'Object' is ambiguous for union type 'UnionValidationApp.Client.Models.UnclassifiedRecordUnion' because multiple case types can use this value type. Specify a custom type classifier to support deserialization. Path: $ | LineNumber: 0 | BytePositionInLine: 1.
+         at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+         at System.Text.Json.ThrowHelper.ThrowJsonException_UnionAmbiguousJsonValueType(Type unionType, JsonValueType valueType)
+         at System.Text.Json.Serialization.Converters.JsonUnionConverter`1.TryResolveCaseType(Utf8JsonReader& reader, Type typeToConvert, JsonTypeInfo`1 typeInfo, Type& caseType)
+         at System.Text.Json.Serialization.Converters.JsonUnionConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, TUnion& value)
+         at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+         at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+         at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+         at System.Text.Json.JsonSerializer.Read[TValue](Utf8JsonReader& reader, JsonTypeInfo`1 jsonTypeInfo)
+         at System.Text.Json.JsonSerializer.Deserialize[TValue](Utf8JsonReader& reader, JsonSerializerOptions options)
+         at Microsoft.AspNetCore.Components.PersistentComponentState.TryTakeFromJson[TValue](String key, TValue& instance)
+         at UnionValidationApp.Client.Components.PersistenceTests.P05_UnclassifiedCustomerPersistence.OnInitialized() in D:\Union-Validation-68480\Union-Validation-68480\UnionValidationApp.Client\Components\PersistenceTests\P05_UnclassifiedCustomerPersistence.razor:line 33
+         at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()

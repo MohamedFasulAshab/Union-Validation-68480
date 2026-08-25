@@ -1,0 +1,11 @@
+ManagedError: AggregateException_ctor_DefaultMessage (Could not parse the parameter value for parameter 'Value' of type 'UnionValidationApp.Client.Models.UnclassifiedRecordUnion' and assembly 'UnionValidationApp.Client'.)
+callEntryPoint @ MonoPlatform.ts:46
+await in callEntryPoint
+startCore @ Boot.WebAssembly.Common.ts:191
+await in startCore
+startWebAssembly @ Boot.WebAssembly.Common.ts:78
+WebRootComponentManager.startWebAssemblyIfNotStarted @ WebRootComponentManager.ts:192
+WebRootComponentManager.resolveRendererIdForDescriptor @ WebRootComponentManager.ts:362
+WebRootComponentManager.determinePendingOperation @ WebRootComponentManager.ts:405
+WebRootComponentManager.refreshRootComponents @ WebRootComponentManager.ts:281
+anonymousCallbackTo: queueMicrotask @ WebRootComponentManager.ts:212
