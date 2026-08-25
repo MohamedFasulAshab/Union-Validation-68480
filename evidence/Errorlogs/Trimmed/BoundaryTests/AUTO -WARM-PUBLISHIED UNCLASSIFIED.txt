@@ -1,0 +1,15 @@
+
+MonoPlatform.ts:46
+ ManagedError: AggregateException_ctor_DefaultMessage (Could not parse the parameter value for parameter 'Value' of type 'UnionValidationApp.Client.Models.UnclassifiedRecordUnion' and assembly 'UnionValidationApp.Client'.)
+callEntryPoint	@	MonoPlatform.ts:46
+await in callEntryPoint		
+startCore	@	Boot.WebAssembly.Common.ts:191
+await in startCore		
+startWebAssembly	@	Boot.WebAssembly.Common.ts:78
+startWebAssemblyIfNotStarted	@	WebRootComponentManager.ts:192
+resolveRendererIdForDescriptor	@	WebRootComponentManager.ts:362
+determinePendingOperation	@	WebRootComponentManager.ts:405
+refreshRootComponents	@	WebRootComponentManager.ts:281
+(anonymous)	@	WebRootComponentManager.ts:212
+[NEW] Explain Console errors by using Copilot in Edge: click 
+ to explain an error. Learn more

@@ -1,0 +1,3 @@
+Loggers.ts:28
+ [2026-08-25T12:59:51.082Z] Error: The list of component operations is not valid.
+log	@	Loggers.ts:28

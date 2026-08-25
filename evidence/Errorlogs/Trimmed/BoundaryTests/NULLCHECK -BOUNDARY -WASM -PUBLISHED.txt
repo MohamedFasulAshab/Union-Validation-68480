@@ -1,0 +1,5 @@
+
+
+MonoPlatform.ts:46
+ ManagedError: AggregateException_ctor_DefaultMessage (Could not parse the parameter value for parameter 'Value' of type 'UnionValidationApp.Client.Models.NullableIntOrString' and assembly 'UnionValidationApp.Client'.)
+callEntryPoint	@	MonoPlatform.ts:46
