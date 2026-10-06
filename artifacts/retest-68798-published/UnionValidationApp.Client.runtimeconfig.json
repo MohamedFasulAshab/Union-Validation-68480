@@ -1,0 +1,40 @@
+{
+  "runtimeOptions": {
+    "tfm": "net11.0",
+    "includedFrameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "11.0.0-rtm.26480.113"
+      }
+    ],
+    "wasmHostProperties": {
+      "perHostConfig": [
+        {
+          "name": "browser",
+          "host": "browser"
+        }
+      ]
+    },
+    "configProperties": {
+      "Microsoft.AspNetCore.Components.Routing.RegexConstraintSupport": false,
+      "System.Diagnostics.Debugger.IsSupported": false,
+      "System.Diagnostics.Metrics.Meter.IsSupported": true,
+      "System.Diagnostics.Tracing.EventSource.IsSupported": true,
+      "System.GC.Server": true,
+      "System.Globalization.Invariant": false,
+      "System.TimeZoneInfo.Invariant": false,
+      "System.Linq.Enumerable.IsSizeOptimized": true,
+      "System.Net.Http.EnableActivityPropagation": true,
+      "System.Net.Http.WasmEnableStreamingResponse": true,
+      "System.Net.SocketsHttpHandler.Http3Support": false,
+      "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+      "System.Resources.UseSystemResourceKeys": true,
+      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false,
+      "System.Text.Encoding.EnableUnsafeUTF7Encoding": false,
+      "System.Text.Json.JsonSerializer.IsReflectionEnabledByDefault": true,
+      "Microsoft.AspNetCore.Components.Endpoints.NavigationManager.DisableThrowNavigationException": true,
+      "System.Diagnostics.StackTrace.IsLineNumberSupported": false,
+      "System.Runtime.CompilerServices.RuntimeFeature.IsMultithreadingSupported": false
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v11.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v11.0": {
+      "UnionValidationApp/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.WebAssembly.Server": "11.0.0-rtm.26480.113",
+          "UnionValidationApp.Client": "1.0.0"
+        },
+        "runtime": {
+          "UnionValidationApp.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Components.WebAssembly/11.0.0-rtm.26480.113": {
+        "dependencies": {
+          "Microsoft.JSInterop.WebAssembly": "11.0.0-rtm.26480.113"
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.AspNetCore.Components.WebAssembly.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.48113",
+            "localPath": "Microsoft.AspNetCore.Components.WebAssembly.dll"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Components.WebAssembly.Server/11.0.0-rtm.26480.113": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.WebAssembly": "11.0.0-rtm.26480.113"
+        },
+        "runtime": {
+          "lib/net11.0/Microsoft.AspNetCore.Components.WebAssembly.Server.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.48113",
+            "localPath": "Microsoft.AspNetCore.Components.WebAssembly.Server.dll"
+          }
+        }
+      },
+      "Microsoft.JSInterop.WebAssembly/11.0.0-rtm.26480.113": {
+        "runtime": {
+          "lib/net11.0/Microsoft.JSInterop.WebAssembly.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.0.26.48113",
+            "localPath": "Microsoft.JSInterop.WebAssembly.dll"
+          }
+        }
+      },
+      "UnionValidationApp.Client/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Components.WebAssembly": "11.0.0-rtm.26480.113"
+        },
+        "runtime": {
+          "UnionValidationApp.Client.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "UnionValidationApp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.Components.WebAssembly/11.0.0-rtm.26480.113": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-M+3d5igR5RD8up/Lfup4AyE5UIaV02udbk0BYsnijxRhx4xlEW4YyrAfjZRzvZqXodliepMFAnZUxjDqg5J45w==",
+      "path": "microsoft.aspnetcore.components.webassembly/11.0.0-rtm.26480.113",
+      "hashPath": "microsoft.aspnetcore.components.webassembly.11.0.0-rtm.26480.113.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Components.WebAssembly.Server/11.0.0-rtm.26480.113": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ibOKZKT96Wrpt5IWVfRg4sBa83b1lG4gcSz3tUhE/2s1BnQBjTAX8bXhgzP901XgIC332+ffSM2SFmEW25a8Fg==",
+      "path": "microsoft.aspnetcore.components.webassembly.server/11.0.0-rtm.26480.113",
+      "hashPath": "microsoft.aspnetcore.components.webassembly.server.11.0.0-rtm.26480.113.nupkg.sha512"
+    },
+    "Microsoft.JSInterop.WebAssembly/11.0.0-rtm.26480.113": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Qqd3cQkRMDdV+PxmIpp/Zmyv1b2Hhr66Pr9q63Sdkde6jhUyaXIBd7oC4GU3ePTDfDNMnRCDx8aULt0Ue/1MUw==",
+      "path": "microsoft.jsinterop.webassembly/11.0.0-rtm.26480.113",
+      "hashPath": "microsoft.jsinterop.webassembly.11.0.0-rtm.26480.113.nupkg.sha512"
+    },
+    "UnionValidationApp.Client/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
